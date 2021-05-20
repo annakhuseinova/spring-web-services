@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<schema xmlns="http://www.w3.org/2001/XMLSchema" targetNamespace="https://in28minutes.com/courses" elementFormDefault="qualified">
+    <element name="GetCourseDetailsRequest">
+        <complexType>
+            <sequence>
+                <element name="id" type="integer"/>
+            </sequence>
+        </complexType>
+    </element>
+    <element name="GetCourseDetailsResponse">
+        <complexType>
+            <sequence>
+                <element name="CourseDetails" type="CourseDetails"/>
+            </sequence>
+        </complexType>
+    </element>
+    <complexType name="CourseDetails">
+        <sequence>
+            <element name="id" type="integer"/>
+            <element name="name" type="string"/>
+            <element name="description" type="string"/>
+        </sequence>
+    </complexType>
+</schema>
