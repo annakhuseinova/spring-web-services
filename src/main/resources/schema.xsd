@@ -3,6 +3,18 @@
         targetNamespace="annakhuseinova.com/springwebservices/courses"
         xmlns:tns="annakhuseinova.com/springwebservices/courses"
         elementFormDefault="qualified">
+
+    <element name="GetAllCourseDetailsRequest">
+        <complexType>
+        </complexType>
+    </element>
+    <element name="GetAllCourseDetailsResponse">
+        <complexType>
+            <sequence>
+                <element name="CourseDetails" type="tns:CourseDetails"  maxOccurs="unbounded"/>
+            </sequence>
+        </complexType>
+    </element>
     <element name="GetCourseDetailsRequest">
         <complexType>
             <sequence>
