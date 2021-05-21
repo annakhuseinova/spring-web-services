@@ -1,7 +1,9 @@
 package com.annakhuseinova.springwebservices.soap;
 
 import com.annakhuseinova.springwebservices.courses.*;
+import com.annakhuseinova.springwebservices.exception.CourseNotFoundException;
 import com.annakhuseinova.springwebservices.model.Course;
+import com.annakhuseinova.springwebservices.model.ResponseStatus;
 import com.annakhuseinova.springwebservices.service.CourseDetailsService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.ws.server.endpoint.annotation.Endpoint;
@@ -24,6 +26,9 @@ public class CourseDetailsEndpoint {
     @ResponsePayload
     public GetCourseDetailsResponse processCourseDetailsRequest(@RequestPayload GetCourseDetailsRequest request){
         Optional<Course> course = service.findById(request.getId());
+        if (course.isEmpty()){
+            throw new CourseNotFoundException("Failed to find course with id: " + request.getId());
+        }
         return mapCourseDetails(course);
     }
 
@@ -32,6 +37,22 @@ public class CourseDetailsEndpoint {
     public GetAllCourseDetailsResponse processAllCourseDetailsRequest(@RequestPayload GetAllCourseDetailsRequest request){
         List<Course> allCourses = service.findAll();
         return mapAllCourseDetails(allCourses);
+    }
+
+    @PayloadRoot(namespace = NAMESPACE, localPart = "DeleteCourseDetailsRequest")
+    @ResponsePayload
+    public DeleteCourseDetailsResponse processAllCourseDetailsRequest(@RequestPayload DeleteCourseDetailsRequest request){
+        ResponseStatus status  = service.deleteById(request.getId());
+        DeleteCourseDetailsResponse response = new DeleteCourseDetailsResponse();
+        response.setStatus(mapStatus(status));
+        return response;
+    }
+
+    private Status mapStatus(ResponseStatus status) {
+        if (status == ResponseStatus.FAILURE){
+            return Status.FAILURE;
+        }
+        return Status.SUCCESS;
     }
 
     private GetAllCourseDetailsResponse mapAllCourseDetails(List<Course> courses){

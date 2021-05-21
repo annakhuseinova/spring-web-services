@@ -1,6 +1,7 @@
 package com.annakhuseinova.springwebservices.service;
 
 import com.annakhuseinova.springwebservices.model.Course;
+import com.annakhuseinova.springwebservices.model.ResponseStatus;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -31,12 +32,12 @@ public class CourseDetailsService {
         return courses;
     }
 
-    public int deleteById(int id){
+    public ResponseStatus deleteById(int id){
         Optional<Course> courseToDelete = courses.stream().findAny().filter(course -> course.getId() == id);
         if (courseToDelete.isPresent()){
             courses.remove(courseToDelete.get());
-            return 1;
+            return ResponseStatus.SUCCESS;
         }
-        return 0;
+        return ResponseStatus.FAILURE;
     }
 }

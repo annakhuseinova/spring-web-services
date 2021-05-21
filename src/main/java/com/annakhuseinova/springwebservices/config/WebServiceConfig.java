@@ -21,6 +21,9 @@ import static com.annakhuseinova.springwebservices.constants.Constants.NAMESPACE
 @EnableWs
 public class WebServiceConfig {
 
+    /**
+     * ServletRegistrationBean is one of the ways to configure and register servlets in Spring Boot application
+     * */
     @Bean
     public ServletRegistrationBean messageDispatcherServlet(ApplicationContext context){
         MessageDispatcherServlet messageDispatcherServlet = new MessageDispatcherServlet();
@@ -28,6 +31,10 @@ public class WebServiceConfig {
         messageDispatcherServlet.setTransformWsdlLocations(true);
         return new ServletRegistrationBean(messageDispatcherServlet, "/ws/*");
     }
+
+    /**
+     *
+     * */
 
     @Bean(name = "courses")
     public DefaultWsdl11Definition defaultWsdl11Definition(XsdSchema coursesSchema){
@@ -39,8 +46,13 @@ public class WebServiceConfig {
         return defaultWsdl11Definition;
     }
 
+    /**
+     *
+     * */
     @Bean
     public XsdSchema coursesSchema(){
         return new SimpleXsdSchema(new ClassPathResource("schema.xsd"));
     }
+
+
 }

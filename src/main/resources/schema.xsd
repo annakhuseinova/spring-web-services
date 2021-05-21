@@ -4,6 +4,26 @@
         xmlns:tns="annakhuseinova.com/springwebservices/courses"
         elementFormDefault="qualified">
 
+    <element name="DeleteCourseDetailsRequest">
+        <complexType>
+            <sequence>
+                <element name="id" type="int"/>
+            </sequence>
+        </complexType>
+    </element>
+    <element name="DeleteCourseDetailsResponse">
+        <complexType>
+            <sequence>
+                <element name="status" type="tns:Status"/>
+            </sequence>
+        </complexType>
+    </element>
+    <simpleType name="Status">
+        <restriction base="string">
+            <enumeration value="SUCCESS"/>
+            <enumeration value="FAILURE"/>
+        </restriction>
+    </simpleType>
     <element name="GetAllCourseDetailsRequest">
         <complexType>
         </complexType>
